@@ -1,0 +1,20 @@
+syntax = "proto3";
+ option  java_multiple_files = true;
+option java_package = "com.example.doctor.grpc";
+option java_outer_classname = "DoctorProto";
+
+package doctor;
+
+service DoctorService{
+    rpc getDoctorById(DoctorRequest) returns (DoctorResponse);
+}
+
+message DoctorRequest{
+    string id = 1;
+}
+
+message DoctorResponse{
+    string id = 1;
+    string name = 2;
+    string speciality = 3;
+}

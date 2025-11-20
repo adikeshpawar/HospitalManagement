@@ -1,0 +1,54 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "com.example.appointment.grpc";
+option java_outer_classname = "AppointmentProto";
+
+package appointment;
+
+service AppointmentService {
+    rpc BookAppointment (AppointmentCreateRequest) returns (AppointmentResponse);
+    rpc GetAppointmentById (AppointmentIdRequest) returns (AppointmentResponse);
+    rpc GetAppointmentsByPatient (PatientIdRequest) returns (AppointmentListResponse);
+    rpc GetAppointmentsByDoctor (DoctorIdRequest) returns (AppointmentListResponse);
+    rpc TestConnection(TestRequest) returns (TestResponse);
+}
+
+message TestRequest{
+    string patientId = 1;
+    string doctorId = 2;
+}
+message  TestResponse{
+    string patientName = 1;
+    string doctorName = 2;
+}
+message AppointmentCreateRequest {
+    string patientId = 1;
+    string doctorId = 2;
+    string date = 3;
+    string time = 4;
+}
+
+message AppointmentIdRequest {
+    string id = 1;
+}
+
+message PatientIdRequest {
+    string id = 1;
+}
+
+message DoctorIdRequest {
+    string id = 1;
+}
+
+message AppointmentListResponse {   // ✔ FIXED SPELLING
+    repeated AppointmentResponse appointments = 1;
+}
+
+message AppointmentResponse {
+    string id = 1;
+    string patientId = 2;
+    string doctorId = 3;
+    string date = 4;
+    string time = 5;
+    string status = 6; // BOOKED / CANCELLED
+}
